@@ -1,0 +1,27 @@
+﻿@page "/"
+@namespace Breadloaf.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Breadloaf</title>
+        <base href="~/"/>
+        <link rel="stylesheet" href="css/bulma/bulma.css"/>
+        <link rel="stylesheet" href="css/custom.css"/>
+    </head>
+
+
+    <body>
+        <app>
+            <component type="typeof(App)" render-mode="ServerPrerendered"/>
+        </app>
+
+        <script src="_framework/blazor.server.js"></script>
+    </body>
+</html>
