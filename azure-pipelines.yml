@@ -1,17 +1,36 @@
+name: $(SourceBranchName)-$(Date:yyyyMMdd)$(Rev:.r)
+
 trigger:
-  - current
+  - v1
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
+
+variables:
+  - group: DiscordWebhook
 
 steps:
-  - task: UseDotNet@2
-    displayName: Install Latest .NET Core 3.0 SDK
-    inputs:
-      packageType: 'sdk'
-      version: '3.1.100-preview3-014645'
-
   - task: DotNetCoreCLI@2
-    displayName: Build App
+    displayName: Build .NET Core Application
     inputs:
-      command: build
+      command: 'build'
+      projects: '**/*.csproj'
+
+  - task: VSTest@2
+    displayName: Run Visual Studio Tests
+    inputs:
+      testSelector: 'testAssemblies'
+      testAssemblyVer2: |
+        **\*test*.dll
+        !**\*TestAdapter.dll
+        !**\obj\**
+      publishRunAttachments: false
+
+  - task: PowerShell@2
+    displayName: Discord Webhook Trigger
+    condition: always()
+    inputs:
+      targetType: 'inline'
+      script: |
+        Invoke-RestMethod https://raw.githubusercontent.com/Yucked/Krypts/master/Azurehook.ps1 -o Azurehook.ps1
+        ./Azurehook.ps1 $(Agent.JobStatus) $(Webhook_URL)
