@@ -54,7 +54,8 @@ namespace Breadloaf.Controllers {
             }
         }
 
-        public virtual Task ReceiveAsync(NodeInfo node, ReadOnlyMemory<byte> buffer)
-            => Task.CompletedTask;
+        public virtual Task ReceiveAsync(NodeInfo node, ReadOnlyMemory<byte> buffer) {
+            return Task.CompletedTask;
+        }
     }
 }

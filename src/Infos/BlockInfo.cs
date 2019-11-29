@@ -6,7 +6,6 @@ using System.Text.Json.Serialization;
 namespace Breadloaf.Infos {
 #pragma warning disable 660,661
     public class BlockInfo : IEquatable<BlockInfo> {
-#pragma warning restore 660,661
         [JsonPropertyName("hash")]
         public string Hash { get; internal set; }
 
@@ -22,16 +21,16 @@ namespace Breadloaf.Infos {
         [JsonPropertyName("transactions")]
         public IList<TransactionInfo> Transactions { get; internal set; }
 
-        public override string ToString() {
-            return JsonSerializer.Serialize(this);
-        }
-
         public bool Equals(BlockInfo other) {
             return Hash == other.Hash
                    && PreviousHash == other.PreviousHash
                    && Proof == other.Proof
                    && TimeStamp.Equals(other.TimeStamp)
                    && Equals(Transactions, other.Transactions);
+        }
+
+        public override string ToString() {
+            return JsonSerializer.Serialize(this);
         }
 
         public static bool operator ==(BlockInfo left, BlockInfo right) {
@@ -41,5 +40,6 @@ namespace Breadloaf.Infos {
         public static bool operator !=(BlockInfo left, BlockInfo right) {
             return !left.Equals(right);
         }
+#pragma warning restore 660,661
     }
 }
