@@ -1,5 +1,5 @@
 ﻿@page "/breadcrumbs"
-@using Breadloaf.Infos
+@using Breadloaf.Breadcrumb
 @using Microsoft.Extensions.Logging
 
 @inject ILogger<BlockInfo> Logger;
@@ -54,7 +54,7 @@
                         Total Balance
                     </td>
                     <td>
-                        @Math.Round(Blockchain.Balance, 3) Crumbs
+                        @Math.Round(Blockchain.Crumbs, 3) Crumbs
                     </td>
                 </tr>
 

@@ -3,33 +3,36 @@
 	<PropertyGroup>
 		<ApplicationIcon>favicon.ico</ApplicationIcon>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
-		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css" />
-		<_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css.map" />
-		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\FONT-LICENSE" />
-		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css" />
-		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.eot" />
-		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.otf" />
-		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
-		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.ttf" />
-		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.woff" />
-		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\ICON-LICENSE" />
-		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\README.md" />
-		<_ContentIncludedByDefault Remove="wwwroot\css\site.css" />
+		<_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css"/>
+		<_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css.map"/>
+		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\FONT-LICENSE"/>
+		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css"/>
+		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.eot"/>
+		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.otf"/>
+		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.svg"/>
+		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.ttf"/>
+		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.woff"/>
+		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\ICON-LICENSE"/>
+		<_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\README.md"/>
+		<_ContentIncludedByDefault Remove="wwwroot\css\site.css"/>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Colorful.Console" Version="1.2.9" />
+		<PackageReference Include="Colorful.Console" Version="1.2.9"/>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="favicon.ico">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
+		<Content Include="favicon.ico">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Breadloaf.Breadcrumb\Breadloaf.Breadcrumb.csproj"/>
 	</ItemGroup>
 
 </Project>

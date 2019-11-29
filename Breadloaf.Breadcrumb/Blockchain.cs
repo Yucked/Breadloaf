@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.Json;
-using Breadloaf.Utils;
-using Microsoft.Extensions.Logging;
 
-namespace Breadloaf.Infos {
+namespace Breadloaf.Breadcrumb {
     public sealed class Blockchain {
         public IList<NodeInfo> Nodes { get; set; }
         public IList<BlockInfo> Chain { get; set; }
@@ -29,13 +27,10 @@ namespace Breadloaf.Infos {
             }
         }
 
-        public double Balance
+        public double Crumbs
             => Chain.Sum(x => x.Transactions.Sum(s => s.Amount));
 
-        private readonly ILogger _logger;
-
-        public Blockchain(ILogger<Blockchain> logger) {
-            _logger = logger;
+        public Blockchain() {
             Nodes = new Collection<NodeInfo>();
             Chain = new Collection<BlockInfo>();
             Transactions = new ConcurrentQueue<TransactionInfo>();
@@ -47,20 +42,16 @@ namespace Breadloaf.Infos {
                 Transactions = new Collection<TransactionInfo>()
             };
 
-            Extensions.CreateHash(ref genesis);
+            Hashing.Create(ref genesis);
             Chain.Add(genesis);
-
-            _logger.LogInformation($"Created genesis block:\n{genesis}");
         }
 
         public void AddNode(NodeInfo node) {
             Nodes.Add(node);
-            _logger.LogInformation($"Node connected: {node}");
         }
 
         public void RemoveNode(NodeInfo node) {
             Nodes.Remove(node);
-            _logger.LogInformation($"Node disconnected: {node}");
         }
 
         public void AddBlock(ref BlockInfo block) {
@@ -68,16 +59,17 @@ namespace Breadloaf.Infos {
             Chain.Add(block);
         }
 
-        public void MineBlock(BlockInfo block) {
-            _logger.LogInformation($"Block mined:\n{block}");
+        public void MineBlock(BlockInfo block, int proofOfWork) {
+            var hashValidationTemplate = new string('0', proofOfWork);
+
+            while (block.Hash.Substring(0, proofOfWork) != hashValidationTemplate)
+                Hashing.Create(ref block);
         }
 
         public void CreateTransaction(TransactionInfo transaction) {
             Transactions.Enqueue(transaction);
             if (Transactions.Count < 2)
                 return;
-
-            _logger.LogInformation("Beginning block mining");
         }
 
         public override string ToString() {

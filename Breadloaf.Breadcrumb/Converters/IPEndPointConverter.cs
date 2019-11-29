@@ -3,7 +3,7 @@ using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Breadloaf.Converters {
+namespace Breadloaf.Breadcrumb.Converters {
     public sealed class IPEndPointConverter : JsonConverter<IPEndPoint> {
         public override IPEndPoint Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
             throw new NotImplementedException();
