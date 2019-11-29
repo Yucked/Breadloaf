@@ -22,7 +22,7 @@ namespace Breadloaf.Middlewares {
                 await _next(context);
                 return;
             }
-            
+
             if (!context.Request.Headers.ContainsKey("Breadloaf"))
                 return;
 

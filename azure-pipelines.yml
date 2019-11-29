@@ -1,17 +1,17 @@
 trigger:
-- master
+  - current
 
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: UseDotNet@2
-  displayName: Install Latest .NET Core 3.0 SDK
-  inputs:
-    packageType: 'sdk'
-    version: '3.1.100-preview3-014645'
+  - task: UseDotNet@2
+    displayName: Install Latest .NET Core 3.0 SDK
+    inputs:
+      packageType: 'sdk'
+      version: '3.1.100-preview3-014645'
 
-- task: DotNetCoreCLI@2
-  displayName: Build App
-  inputs:
-    command: build
+  - task: DotNetCoreCLI@2
+    displayName: Build App
+    inputs:
+      command: build

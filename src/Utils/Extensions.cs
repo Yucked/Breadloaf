@@ -13,8 +13,11 @@ namespace Breadloaf.Utils {
     public static class Extensions {
         private static readonly Random Random = new Random();
 
-        public static Color GetLogColor(this LogLevel logLevel)
-            => logLevel switch {
+        public static double NextDouble
+            => Random.NextDouble() * (700 - 100) + 100;
+
+        public static Color GetLogColor(this LogLevel logLevel) {
+            return logLevel switch {
                 LogLevel.Information => Color.SpringGreen,
                 LogLevel.Debug       => Color.Coral,
                 LogLevel.Trace       => Color.MediumPurple,
@@ -23,6 +26,7 @@ namespace Breadloaf.Utils {
                 LogLevel.Warning     => Color.Orange,
                 _                    => Color.Tomato
             };
+        }
 
         public static string PadBoth(this string source, int length) {
             var spaces = length - source.Length;
@@ -67,9 +71,7 @@ namespace Breadloaf.Utils {
             var hash = crypto.ComputeHash(Encoding.UTF8.GetBytes(rawData));
 
             var result = new StringBuilder();
-            foreach (var data in hash) {
-                result.Append($"{data:X2}");
-            }
+            foreach (var data in hash) result.Append($"{data:X2}");
 
             blockInfo.Hash = $"{result}";
             result.Clear();
@@ -81,9 +83,7 @@ namespace Breadloaf.Utils {
             var hash = crypto.ComputeHash(Encoding.UTF8.GetBytes(rawData));
 
             var builder = new StringBuilder();
-            foreach (var data in hash) {
-                builder.Append($"{data:X2}");
-            }
+            foreach (var data in hash) builder.Append($"{data:X2}");
 
             return $"{builder}";
         }
@@ -91,9 +91,7 @@ namespace Breadloaf.Utils {
         public static void MineBlock(this BlockInfo blockInfo, int proofOfWork) {
             var hashValidationTemplate = new string('0', proofOfWork);
 
-            while (blockInfo.Hash.Substring(0, proofOfWork) != hashValidationTemplate) {
-                CreateHash(ref blockInfo);
-            }
+            while (blockInfo.Hash.Substring(0, proofOfWork) != hashValidationTemplate) CreateHash(ref blockInfo);
         }
 
         public static IPEndPoint GenerateRandomAddress() {
@@ -107,8 +105,5 @@ namespace Breadloaf.Utils {
 
             return new IPEndPoint(IPAddress.Parse(GetRandomAddress()), GetRandomPort());
         }
-
-        public static double NextDouble
-            => Random.NextDouble() * (700 - 100) + 100;
     }
 }
