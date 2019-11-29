@@ -1,0 +1,187 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap');
+@import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
+
+body {
+    font-size: 18px;
+}
+
+body, button {
+    font-family: 'Comfortaa', cursive;
+}
+
+html {
+    overflow: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    background-color: #131313;
+}
+
+button {
+    width: 15%;
+    border-radius: 15px !important;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.has-5-padding {
+    padding: 5px;
+}
+
+.has-10-padding {
+    padding: 10px;
+}
+
+.has-15-padding {
+    padding: 15px;
+}
+
+.has-20-padding {
+    padding: 20px;
+}
+
+.has-5-margin {
+    margin: 5px;
+}
+
+.has-10-margin {
+    margin: 10px;
+}
+
+.has-20-margin {
+    margin: 20px;
+}
+
+.has-border-radius-30 {
+    border-radius: 30px;
+}
+
+.has-border-radius-25 {
+    border-radius: 25px;
+}
+
+.has-border-radius-20 {
+    border-radius: 20px;
+}
+
+.has-border-radius-15 {
+    border-radius: 15px;
+}
+
+.has-text-dim-white {
+    color: ivory;
+}
+
+.has-items-centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.has-shadow {
+    box-shadow: 0 1px 10px black;
+}
+
+.has-top-margin-15 {
+    margin-top: 15px;
+}
+
+highlight {
+    font-size: 17px;
+    color: #131313;
+    border-radius: 20px;
+    padding: 5px;
+    transition: background-color 0.3s;
+    background-color: rgb(26, 255, 152);
+    box-shadow: 1px 1px 5px black;
+}
+
+highlight:hover {
+    font-size: 17px;
+    color: #131313;
+    opacity: 1 !important;
+    transition: background-color 0.3s;
+    background-color: rgba(107, 255, 103, 0.81);
+}
+
+code {
+    background: #303030;
+    color: white;
+    page-break-inside: avoid !important;
+    font-family: 'VT323', monospace;
+    font-weight: 300;
+    font-size: 20px;
+    max-width: 100%;
+    overflow: hidden;
+    display: block;
+    word-wrap: break-word;
+    box-shadow: inset 0 1px 10px #131313;
+    white-space: pre-wrap;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 20px;
+}
+
+block {
+    display: inline-block;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    background-color: yellow !important;
+    color: black !important;
+    -webkit-box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.54);
+    -moz-box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.54);
+    box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.54);
+}
+
+
+.has-image-centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.is-somewhat-purple {
+    color: #ede2dd !important;
+    background-color: #c229fa !important;
+}
+
+.is-somewhat-yellow {
+    color: #131313 !important;
+    background-color: #fff454 !important;
+}
+
+.is-somewhat-white {
+    color: #131313 !important;
+    background-color: #fff !important;
+}
+
+.is-somewhat-black {
+    color: #ede2dd !important;
+    background-color: #131313 !important;
+}
+
+.is-somewhat-red {
+    color: #ede2dd !important;
+    background-color: #f74545 !important;
+}
+
+.is-somewhat-light-salmon {
+    color: #000 !important;
+    background-color: #fcb46c !important;
+}
+
+.is-somewhat-medium-purple {
+    color: #fff !important;
+    background-color: #9151dd !important;
+}
+
+table {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+td {
+    border: 0 !important;
+}

@@ -1,0 +1,124 @@
+﻿@page "/breadcrumbs"
+@using Breadloaf.Infos
+@using Microsoft.Extensions.Logging
+
+@inject ILogger<BlockInfo> Logger;
+@inject Blockchain Blockchain;
+
+<section class="has-20-padding has-border-radius-15 has-20-margin is-somewhat-white">
+
+    <section class="has-20-padding has-20-margin has-border-radius-15 is-somewhat-white has-text-centered">
+        <section class="has-20-padding has-20-margin has-border-radius-15 is-somewhat-light-salmon has-text-centered has-shadow">
+            <h1 class="is-size-3">Chain Information</h1>
+            <hr>
+            <table class="table is-fullwidth">
+                <tbody>
+                <tr>
+                    <td>
+                        Nodes Connected
+                    </td>
+                    <td>
+                        @Blockchain.Nodes.Count
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Blocks In Chain
+                    </td>
+                    <td>
+                        @Blockchain.Chain.Count Block(s)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Pending Transactions
+                    </td>
+                    <td>
+                        @Blockchain.Transactions.Count
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Chain Validity
+                    </td>
+                    <td>
+                        @(Blockchain.IsValid ? "Valid" : "Invalid")
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Total Balance
+                    </td>
+                    <td>
+                        @Math.Round(Blockchain.Balance, 3) Crumbs
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </section>
+
+        <section class="has-20-padding has-20-margin has-border-radius-15 has-text-centered">
+            @for (var i = 0; i < Blockchain.Chain.Count; i++) {
+                var block = Blockchain.Chain[i];
+                var prevHash = block.PreviousHash == "0"
+                    ? block.PreviousHash
+                    : $"{block.PreviousHash.Substring(0, 13)}...";
+                var genesisColor = i == 0 ? "is-somewhat-medium-purple" : "is-somewhat-black";
+                var zIndex = Blockchain.Chain.Count - i;
+
+                <block class="@genesisColor" style="z-index: @zIndex;">
+                    <table class="table is-fullwidth">
+                        <tbody>
+                        <tr>
+                            <td>
+                                Hash
+                            </td>
+                            <td>
+                                @block.Hash.Substring(0, 13)...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Previous Hash
+                            </td>
+                            <td>
+                                @prevHash
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Proof of Work
+                            </td>
+                            <td>
+                                @block.Proof
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Timestamp
+                            </td>
+                            <td>
+                                @block.TimeStamp
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Transactions
+                            </td>
+                            <td>
+                                @block.Transactions.Count
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </block>
+            }
+        </section>
+    </section>
+
+</section>

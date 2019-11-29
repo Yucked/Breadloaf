@@ -1,0 +1,126 @@
+﻿@page "/block-info"
+@using System.Text.Json
+@using Breadloaf.Infos
+@using Breadloaf.Utils
+@using Microsoft.Extensions.Logging
+
+@inject ILogger<BlockInfo> Logger;
+@inject Blockchain Blockchain;
+
+<section class="has-20-padding has-border-radius-15 has-20-margin is-somewhat-white">
+
+    <section class="has-20-padding has-20-margin has-border-radius-15 is-somewhat-black has-text-centered has-shadow">
+        <h1 class="is-size-2">Discovering Blockchain Technology</h1>
+        <hr>
+        <div class="section">
+            A blockchain is a decentralized peer-to-peer network consisting of blocks also known as records. Each record is
+            unique and contains a unique history that is added to the chain in chronological order after it is verified by several computers, known as nodes.
+            Every block that is added contains a hash of the previous block linking them to each other, forming a chain hence the term blockchain.
+            The data added to the blockchain is not immutable. By allowing digital information to be distributed, but not copied, blockchain technology created the
+            backbone of a new type of internet. It is this difference that makes blockchain technology so useful — representing an innovation in registering and
+            distributing information, that eliminates the need for a trusted party to facilitate those relationships.
+        </div>
+    </section>
+
+    <section class="has-20-padding has-20-margin has-border-radius-15 is-somewhat-yellow has-shadow">
+        <h1 class="is-size-4">Block Structure</h1>
+        <span class="has-10-margin">A block is essentially a record. Every block is immutable, once mutaed the whole chain becomes invalid.</span>
+        <code>
+            public struct Block {
+            [JsonPropertyName("nonce")]
+            public long Nonce { get; set; }
+
+            [JsonPropertyName("hash")]
+            public string Hash { get; set; }
+
+            [JsonPropertyName("previous-hash")]
+            public string PreviousHash { get; set; }
+
+            [JsonPropertyName("timestamp")]
+            public DateTimeOffset TimeStamp { get; set; }
+
+            [JsonPropertyName("transactions")]
+            public List&lt;Transaction&gt; Transactions { get; set; }
+            }
+        </code>
+
+        <div class="has-text-centered has-20-margin">
+            <button class="button has-shadow is-medium is-somewhat-purple has-10-margin"
+                    @onclick="@GenerateBlock">
+                Generate Block!
+            </button>
+        </div>
+
+        <div style="display: @_isHidden">
+            <code>@_rawData</code>
+            <br>
+            <p class="has-10-margin has-10-padding has-text-centered">
+                When serialized to JSON, you can see all the data a block contains. The first block in the chain is called <highlight>Genesis block</highlight>.<br>
+                The very first block always has it's previous hash set to 0 or sets of 0's for obvious reasons.
+                Transaction object contains the following information:
+            </p>
+            <code>
+                public struct Transaction {
+                [JsonPropertyName("from"), JsonConverter(typeof(IPEndPointConverter))]
+                public IPEndPoint From { get; set; }
+
+                [JsonPropertyName("to"), JsonConverter(typeof(IPEndPointConverter))]
+                public IPEndPoint To { get; set; }
+
+                [JsonPropertyName("amount")]
+                public double Amount { get; set; }
+                }
+            </code>
+        </div>
+    </section>
+
+    <section class="has-20-padding has-20-margin has-border-radius-15 is-somewhat-yellow has-shadow">
+        <h1 class="is-size-4">Creating Blockchain</h1>
+        <span class="has-10-margin">Below we can create a dummy blockchain to demonstrate how blocks are linked together and transactions come into play.</span>
+
+    </section>
+</section>
+
+
+@code {
+
+    private string _isHidden = "none";
+    private string _rawData;
+
+    private void GenerateBlock() {
+        try {
+            var block = new BlockInfo {
+                TimeStamp = DateTimeOffset.Now,
+                PreviousHash = "000000",
+                Transactions = new List<TransactionInfo>(1) {
+                    new TransactionInfo {
+                        Memo = "Demo Transaction #1",
+                        Amount = Extensions.NextDouble,
+                        From = Extensions.GenerateRandomAddress(),
+                        To = Extensions.GenerateRandomAddress()
+                    },
+                    new TransactionInfo {
+                        Memo = "Demo Transaction #2",
+                        Amount = Extensions.NextDouble,
+                        From = Extensions.GenerateRandomAddress(),
+                        To = Extensions.GenerateRandomAddress()
+                    }
+                }
+            };
+
+            Extensions.CreateHash(ref block);
+            Blockchain.AddBlock(ref block);
+
+            _rawData = JsonSerializer.Serialize(block, new JsonSerializerOptions {
+                WriteIndented = true
+            });
+
+            Logger.LogInformation($"Block Created:\n{block}");
+            _isHidden = "block";
+        }
+        catch (Exception exception) {
+            Logger.LogError(exception, exception.Message);
+        }
+    }
+
+}

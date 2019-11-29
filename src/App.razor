@@ -1,0 +1,17 @@
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <section class="is-somewhat-black">
+                <figure class="image has-image-centered" style="width: 40%">
+                    <img src="/imgs/giphy.webp">
+                </figure>
+                <h2 class="has-text-centered">
+                    Seems like you're lost, young one.
+                </h2>
+            </section>
+        </LayoutView>
+    </NotFound>
+</Router>
