@@ -27,14 +27,13 @@
 
 ## `📚 To-Do List:`
 - [ ] Proof of work implementation.
-- [ ] Verifying block's hashes when verifying if chain is valid.
+- [x] Verifying block's hashes when verifying if chain is valid.
 - [x] Building a blockchain from web UI.
 - [x] CSS to demonstrate an actual block.
 - [ ] WebSockets client/server and syncing chains.
-- [ ] Broadcasting to all clients when a block is added to the chain.
-- [ ] Replace `System.Text.Json` with `Utf8Json`.
+- [x] Broadcasting to all clients when a block is added to the chain.
+- [ ] ~~Replace `System.Text.Json` with `Utf8Json`.~~
 - [x] A separate webpage to visualize blockchain.
 - [x] Rename blockchain to `Breadcrumbs` 🍞.
 - [ ] Some sort of mining algorithm?
 - [ ] Figure out how pending transactions and block transactions work.
-- [x] Fix blockchain verification.

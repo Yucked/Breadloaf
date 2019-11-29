@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Breadloaf.Breadcrumb {
     public sealed class Blockchain {
@@ -42,6 +43,8 @@ namespace Breadloaf.Breadcrumb {
         public double Crumbs
             => Chain.Sum(x => x.Transactions.Sum(s => s.Amount));
 
+        public event Func<BlockInfo, Task> OnBlockAdded;
+
         public Blockchain() {
             Nodes = new Collection<NodeInfo>();
             Chain = new Collection<BlockInfo>();
@@ -70,6 +73,7 @@ namespace Breadloaf.Breadcrumb {
             block.PreviousHash = Chain[^1].Hash;
             Hashing.Create(ref block);
             Chain.Add(block);
+            OnBlockAdded?.Invoke(block);
         }
 
         public void MineBlock(BlockInfo block, int proofOfWork) {
