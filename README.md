@@ -10,9 +10,6 @@
   	<a href="https://dev.azure.com/Yucked/Builds/_build?definitionId=3">
 		<img src="https://img.shields.io/azure-devops/build/yucked/24313938-90f7-4803-a2c4-3f5493129c43/3?color=%23CB2E6D&label=Build%20Status&logo=azure-pipelines&logoColor=%232560E0&style=for-the-badge&labelColor=131313&logoWidth=20" />
 	</a>
-	<a href="https://dev.azure.com/Yucked/Builds/_build?definitionId=3">
-    		<img src="https://img.shields.io/azure-devops/tests/Yucked/Builds/3?compact_message&style=for-the-badge&color=%23CB2E6D&label=Tests&logo=azure-pipelines&logoColor=%232560E0&labelColor=131313&logoWidth=20" />
-    </a>	
 	<p align="center">
 	     🍞 - Breadloaf is a .NET implementation of a Blockchain on Blazor server.
   </p>
@@ -31,12 +28,13 @@
 ## `📚 To-Do List:`
 - [ ] Proof of work implementation.
 - [ ] Verifying block's hashes when verifying if chain is valid.
-- [ ] Building a blockchain from web UI.
-- [ ] CSS to demonstrate an actual block.
+- [x] Building a blockchain from web UI.
+- [x] CSS to demonstrate an actual block.
 - [ ] WebSockets client/server and syncing chains.
 - [ ] Broadcasting to all clients when a block is added to the chain.
 - [ ] Replace `System.Text.Json` with `Utf8Json`.
-- [ ] A separate webpage to visualize blockchain.
-- [ ] Rename blockchain to `Breadcrumbs` 🍞.
-- [ ] Some sort of mining algortihm?
+- [x] A separate webpage to visualize blockchain.
+- [x] Rename blockchain to `Breadcrumbs` 🍞.
+- [ ] Some sort of mining algorithm?
 - [ ] Figure out how pending transactions and block transactions work.
+- [x] Fix blockchain verification.

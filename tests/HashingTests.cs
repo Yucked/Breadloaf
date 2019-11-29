@@ -25,6 +25,9 @@ namespace Breadloaf.Tests {
 
             Hashing.Create(ref block);
             Assert.IsNotNull(block.Hash);
+
+            var getHash = Hashing.Get(block);
+            Assert.AreEqual(block.Hash, getHash, $"{block.Hash}\n{getHash}");
         }
     }
 }

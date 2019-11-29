@@ -7,7 +7,7 @@ namespace Breadloaf.Breadcrumb {
         private static readonly Random Random = new Random();
 
         private static double NextDouble
-            => Random.NextDouble() * (700 - 100) + 100;
+            => Random.NextDouble() * (0.01 - 9.9) + 9.9;
 
         public static IEnumerable<TransactionInfo> DummyTransactions
         {

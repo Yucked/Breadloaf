@@ -4,13 +4,20 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Breadloaf.Breadcrumb {
     public sealed class Blockchain {
+        [JsonPropertyName("nodes")]
         public IList<NodeInfo> Nodes { get; set; }
+
+        [JsonPropertyName("chain")]
         public IList<BlockInfo> Chain { get; set; }
+
+        [JsonPropertyName("pending-transactions")]
         public ConcurrentQueue<TransactionInfo> Transactions { get; set; }
 
+        [JsonPropertyName("is-valid")]
         public bool IsValid
         {
             get
@@ -18,6 +25,10 @@ namespace Breadloaf.Breadcrumb {
                 for (var i = 1; i < Chain.Count; i++) {
                     var previous = Chain[i - 1];
                     var current = Chain[i];
+
+                    var currentHash = Hashing.Get(current);
+                    if (current.Hash != currentHash)
+                        return false;
 
                     if (current.PreviousHash != previous.Hash)
                         return false;
@@ -27,6 +38,7 @@ namespace Breadloaf.Breadcrumb {
             }
         }
 
+        [JsonPropertyName("crumbs")]
         public double Crumbs
             => Chain.Sum(x => x.Transactions.Sum(s => s.Amount));
 
@@ -56,6 +68,7 @@ namespace Breadloaf.Breadcrumb {
 
         public void AddBlock(ref BlockInfo block) {
             block.PreviousHash = Chain[^1].Hash;
+            Hashing.Create(ref block);
             Chain.Add(block);
         }
 
