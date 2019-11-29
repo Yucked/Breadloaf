@@ -7,9 +7,12 @@
   	<a href="http://buymeacoff.ee/Yucked">
 		<img src="https://img.shields.io/badge/Buy%20Me%20A-Coffee-%23FF813F.svg?logo=buy-me-a-coffee&style=for-the-badge&logoWidth=20&labelColor=0d0d0d" />
 	</a>
-  	<a href="https://dev.azure.com/Yucks/Builds/_build?definitionId=1">
-		<img src="https://img.shields.io/azure-devops/build/yucks/dcf2a737-53e1-4d3e-9b5e-5720315fc98c/1?color=%23CB2E6D&label=Build%20Status&logo=azure-pipelines&logoColor=%232560E0&style=for-the-badge&labelColor=131313" />
-	</a>	
+  	<a href="https://dev.azure.com/Yucked/Builds/_build?definitionId=3">
+		<img src="https://img.shields.io/azure-devops/build/yucked/24313938-90f7-4803-a2c4-3f5493129c43/3?color=%23CB2E6D&label=Build%20Status&logo=azure-pipelines&logoColor=%232560E0&style=for-the-badge&labelColor=131313&logoWidth=20" />
+	</a>
+	<a href="https://dev.azure.com/Yucked/Builds/_build?definitionId=3">
+    		<img src="https://img.shields.io/azure-devops/tests/Yucked/Builds/3?compact_message&style=for-the-badge&color=%23CB2E6D&label=Tests&logo=azure-pipelines&logoColor=%232560E0&labelColor=131313&logoWidth=20" />
+    </a>	
 	<p align="center">
 	     🍞 - Breadloaf is a .NET implementation of a Blockchain on Blazor server.
   </p>

@@ -1,6 +1,6 @@
 using System;
+using Breadloaf.Breadcrumb;
 using Breadloaf.Controllers;
-using Breadloaf.Infos;
 using Breadloaf.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

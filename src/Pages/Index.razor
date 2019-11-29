@@ -1,7 +1,6 @@
 ﻿@page "/"
 @using System.Text.Json
-@using Breadloaf.Infos
-@using Breadloaf.Utils
+@using Breadloaf.Breadcrumb
 @using Microsoft.Extensions.Logging
 
 @inject ILogger<BlockInfo> Logger;
@@ -92,23 +91,10 @@
             var block = new BlockInfo {
                 TimeStamp = DateTimeOffset.Now,
                 PreviousHash = "000000",
-                Transactions = new List<TransactionInfo>(1) {
-                    new TransactionInfo {
-                        Memo = "Demo Transaction #1",
-                        Amount = Extensions.NextDouble,
-                        From = Extensions.GenerateRandomAddress(),
-                        To = Extensions.GenerateRandomAddress()
-                    },
-                    new TransactionInfo {
-                        Memo = "Demo Transaction #2",
-                        Amount = Extensions.NextDouble,
-                        From = Extensions.GenerateRandomAddress(),
-                        To = Extensions.GenerateRandomAddress()
-                    }
-                }
+                Transactions = Utilities.DummyTransactions.ToArray()
             };
 
-            Extensions.CreateHash(ref block);
+            Hashing.Create(ref block);
             Blockchain.AddBlock(ref block);
 
             _rawData = JsonSerializer.Serialize(block, new JsonSerializerOptions {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Text.Json.Serialization;
-using Breadloaf.Converters;
+using Breadloaf.Breadcrumb.Converters;
 
-namespace Breadloaf.Infos {
+namespace Breadloaf.Breadcrumb {
     public struct TransactionInfo {
         [JsonPropertyName("from")]
         [JsonConverter(typeof(IPEndPointConverter))]

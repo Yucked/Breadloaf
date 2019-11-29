@@ -1,21 +1,11 @@
-﻿using System;
-using System.Drawing;
-using System.Net;
+﻿using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-using System.Text;
-using Breadloaf.Infos;
 using Colorful;
 using Microsoft.Extensions.Logging;
 using Console = Colorful.Console;
 
 namespace Breadloaf.Utils {
     public static class Extensions {
-        private static readonly Random Random = new Random();
-
-        public static double NextDouble
-            => Random.NextDouble() * (700 - 100) + 100;
-
         public static Color GetLogColor(this LogLevel logLevel) {
             return logLevel switch {
                 LogLevel.Information => Color.SpringGreen,
@@ -63,47 +53,6 @@ namespace Breadloaf.Utils {
 
             Console.WriteLineFormatted(logMessage, Color.White, formatters);
             Console.WriteLine(lineBreak);
-        }
-
-        public static void CreateHash(ref BlockInfo blockInfo) {
-            var rawData = $"{blockInfo.PreviousHash}-{blockInfo.TimeStamp.Ticks}-{blockInfo.Transactions.Count}";
-            using var crypto = SHA512.Create();
-            var hash = crypto.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-            var result = new StringBuilder();
-            foreach (var data in hash) result.Append($"{data:X2}");
-
-            blockInfo.Hash = $"{result}";
-            result.Clear();
-        }
-
-        public static string GetHash(this BlockInfo blockInfo) {
-            var rawData = $"{blockInfo.PreviousHash}-{blockInfo.TimeStamp.Ticks}-{blockInfo.Transactions.Count}";
-            using var crypto = SHA512.Create();
-            var hash = crypto.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-            var builder = new StringBuilder();
-            foreach (var data in hash) builder.Append($"{data:X2}");
-
-            return $"{builder}";
-        }
-
-        public static void MineBlock(this BlockInfo blockInfo, int proofOfWork) {
-            var hashValidationTemplate = new string('0', proofOfWork);
-
-            while (blockInfo.Hash.Substring(0, proofOfWork) != hashValidationTemplate) CreateHash(ref blockInfo);
-        }
-
-        public static IPEndPoint GenerateRandomAddress() {
-            static int GetRandomPort() {
-                return Random.Next(IPEndPoint.MinPort, IPEndPoint.MaxPort);
-            }
-
-            static string GetRandomAddress() {
-                return $"{Random.Next(0, 256)}.{Random.Next(0, 255)}.{Random.Next(0, 255)}.{Random.Next(0, 255)}";
-            }
-
-            return new IPEndPoint(IPAddress.Parse(GetRandomAddress()), GetRandomPort());
         }
     }
 }
