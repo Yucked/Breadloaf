@@ -12,6 +12,7 @@ namespace Breadloaf.Controllers {
         public WebSocketController(Blockchain blockchain, ILogger<WebSocketController> logger)
             : base(blockchain, logger) {
             _logger = logger;
+            blockchain.OnBlockAdded += OnBlockAdded;
         }
 
         public override async Task ReceiveAsync(NodeInfo node, ReadOnlyMemory<byte> buffer) {
@@ -27,6 +28,12 @@ namespace Breadloaf.Controllers {
             }
 
             await base.ReceiveAsync(node, buffer);
+        }
+
+        private async Task OnBlockAdded(BlockInfo block) {
+            _logger.LogInformation($"Broadcasting to all clients of new block addition.\n{block}");
+            await SendToAllAsync(block)
+                .ConfigureAwait(false);
         }
     }
 }
