@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 
-namespace Breadloaf.Breadcrumb {
+namespace Breadloaf.Models {
     public static class Utilities {
         private static readonly Random Random = new Random();
 
@@ -13,7 +13,7 @@ namespace Breadloaf.Breadcrumb {
         {
             get
             {
-                var maxCount = Random.Next(9);
+                var maxCount = Random.Next(1, 5);
                 for (var i = 0; i < maxCount; i++) {
                     yield return new TransactionInfo {
                         Memo = "Dummy Transaction #${i}",

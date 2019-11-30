@@ -13,7 +13,6 @@ html {
     overflow: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    background-color: #131313;
 }
 
 button {
@@ -52,6 +51,10 @@ button {
 
 .has-20-margin {
     margin: 20px;
+}
+
+.has-30-margin {
+    margin: 30px;
 }
 
 .has-border-radius-30 {
@@ -95,7 +98,6 @@ highlight {
     padding: 5px;
     transition: background-color 0.3s;
     background-color: rgb(26, 255, 152);
-    box-shadow: 1px 1px 5px black;
 }
 
 highlight:hover {
@@ -175,6 +177,11 @@ block {
 .is-somewhat-medium-purple {
     color: #fff !important;
     background-color: #9151dd !important;
+}
+
+.is-somewhat-pink {
+    color: #2d2d26 !important;
+    background-color: #f29e9e !important;
 }
 
 table {

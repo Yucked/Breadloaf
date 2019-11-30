@@ -1,6 +1,6 @@
 ﻿using System.Net.WebSockets;
 
-namespace Breadloaf.Breadcrumb {
+namespace Breadloaf.Models {
     public readonly struct NodeInfo {
         public string Address { get; }
         public WebSocket Socket { get; }
