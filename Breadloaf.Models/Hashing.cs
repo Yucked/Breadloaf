@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Breadloaf.Breadcrumb {
+namespace Breadloaf.Models {
     public struct Hashing {
         public static void Create(ref BlockInfo blockInfo) {
             var rawData = $"{blockInfo.PreviousHash}-{blockInfo.TimeStamp.Ticks}-{blockInfo.Transactions.Count}";

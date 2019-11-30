@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionF
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breadloaf.Breadcrumb", "Breadloaf.Breadcrumb\Breadloaf.Breadcrumb.csproj", "{C0246E7F-EACE-4588-817C-276BE65517EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breadloaf.Models", "Breadloaf.Models\Breadloaf.Models.csproj", "{C0246E7F-EACE-4588-817C-276BE65517EA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breadloaf.Tests", "tests\Breadloaf.Tests.csproj", "{10C2C641-083B-4A84-9CC8-CDC741A3945C}"
 EndProject

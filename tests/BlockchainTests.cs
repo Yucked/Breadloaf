@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Breadloaf.Breadcrumb;
+using Breadloaf.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Breadloaf.Tests {

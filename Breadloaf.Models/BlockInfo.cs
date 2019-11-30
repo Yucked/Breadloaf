@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Breadloaf.Breadcrumb {
+namespace Breadloaf.Models {
     public sealed class BlockInfo : IEquatable<BlockInfo> {
         [JsonPropertyName("hash")]
         public string Hash { get; private set; }
@@ -38,6 +38,10 @@ namespace Breadloaf.Breadcrumb {
 
         public static bool operator !=(BlockInfo left, BlockInfo right) {
             return !left.Equals(right);
+        }
+
+        public override int GetHashCode() {
+            return base.GetHashCode();
         }
 
         public void SetHash(string hash) {

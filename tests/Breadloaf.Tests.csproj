@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Breadloaf.Breadcrumb\Breadloaf.Breadcrumb.csproj" />
+    <ProjectReference Include="..\Breadloaf.Models\Breadloaf.Models.csproj" />
   </ItemGroup>
 
 </Project>

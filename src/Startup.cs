@@ -1,5 +1,5 @@
 using System;
-using Breadloaf.Breadcrumb;
+using Breadloaf.Models;
 using Breadloaf.Controllers;
 using Breadloaf.Middlewares;
 using Microsoft.AspNetCore.Builder;
@@ -33,17 +33,11 @@ namespace Breadloaf {
                 app.UseHsts();
             }
 
-            app.UseWebSockets(new WebSocketOptions {
-                KeepAliveInterval = TimeSpan.FromSeconds(5),
-                ReceiveBufferSize = 256
-            });
-
-            app.UseResponseCompression();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseMiddleware(typeof(ExceptionMiddleware));
-            app.UseMiddleware(typeof(WebSocketMiddleware));
+            //app.UseMiddleware(typeof(ExceptionMiddleware));
+            //app.UseMiddleware(typeof(WebSocketMiddleware));
 
             app.UseRouting();
             app.UseEndpoints(endpoints => {

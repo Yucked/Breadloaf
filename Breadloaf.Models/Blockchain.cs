@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Breadloaf.Breadcrumb {
+namespace Breadloaf.Models {
     public sealed class Blockchain {
         [JsonPropertyName("nodes")]
         public IList<NodeInfo> Nodes { get; set; }
