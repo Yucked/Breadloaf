@@ -5,66 +5,87 @@
 @inject ILogger<BlockInfo> Logger;
 @inject Blockchain Blockchain;
 
-<section class="has-20-padding has-20-margin has-border-radius-15 is-somewhat-yellow has-shadow">
-    <h1 class="title">Creating Blockchain</h1>
-    <p class="subtitle has-10-margin">
-        Below we can create a dummy blockchain called Breadcrumbs
-        to demonstrate how blocks are linked together and transactions come into play.
-    </p>
-</section>
+<section class="has-20-padding has-20-margin has-border-radius-15 is-grape has-shadow">
+    <h1 class="title" style="color: #ede2dd;">Chain Information:</h1>
+    <div class="container">
+        <p class="subtitle has-text-justified" style="color: #cbc1bd;">
+            We can see the current state of the chain and get basic information about it. The information displayed is only
+            for our current application. If there were multiple nodes, this information would be changing drastically as new
+            blocks are added to the chain and number of transaction going up or down.
+        </p>
+    </div>
 
-<section class="has-20-padding has-20-margin has-border-radius-15 is-somewhat-light-salmon has-text-centered has-shadow">
-    <h1 class="is-size-3">Chain Information</h1>
-    <hr>
-    <table class="table is-fullwidth">
-        <tbody>
-        <tr>
-            <td>
-                Nodes Connected
-            </td>
-            <td>
-                @Blockchain.Nodes.Count
-            </td>
-        </tr>
+    <div class="container">
+        <div class="columns is-centered has-10-padding has-10-margin">
+            <div class="column">
+                <figure class="image is-200x200 is-floating">
+                    <img src="imgs/jewel.gif" alt="">
+                </figure>
+            </div>
 
-        <tr>
-            <td>
-                Blocks In Chain
-            </td>
-            <td>
-                @Blockchain.Chain.Count Block(s)
-            </td>
-        </tr>
+            <div class="column">
+                <table class="table is-fullwidth">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <b>
+                                Connected Nodes:
+                            </b>
+                        </td>
+                        <td>
+                            @Blockchain.Nodes.Count
+                        </td>
+                    </tr>
 
-        <tr>
-            <td>
-                Pending Transactions
-            </td>
-            <td>
-                @Blockchain.Transactions.Count
-            </td>
-        </tr>
+                    <tr>
+                        <td>
+                            <b>
+                                Blocks Count:
+                            </b>
+                        </td>
+                        <td>
+                            @Blockchain.Chain.Count Block(s)
+                        </td>
+                    </tr>
 
-        <tr>
-            <td>
-                Chain Validity
-            </td>
-            <td>
-                @(Blockchain.IsValid ? "Valid" : "Invalid")
-            </td>
-        </tr>
+                    <tr>
+                        <td>
+                            <b>
+                                Pending Transactions:
+                            </b>
+                        </td>
+                        <td>
+                            @Blockchain.Transactions.Count
+                        </td>
+                    </tr>
 
-        <tr>
-            <td>
-                Total Balance
-            </td>
-            <td>
-                @Math.Round(Blockchain.Crumbs, 3) Crumbs
-            </td>
-        </tr>
+                    <tr>
+                        <td>
+                            <b>
+                                Chain Validity:
+                            </b>
+                        </td>
+                        <td>
+                            @(Blockchain.IsValid ? "Valid" : "Invalid")
+                        </td>
+                    </tr>
 
-        </tbody>
-    </table>
+                    <tr>
+                        <td>
+                            <b>
+                                Circulating Crumbs:
+                            </b>
+                        </td>
+                        <td>
+                            @Math.Round(Blockchain.Crumbs, 3) Crumbs
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section class="has-20-padding has-20-margin has-border-radius-15 has-text-centered">
@@ -73,10 +94,9 @@
         var prevHash = block.PreviousHash == "0"
             ? block.PreviousHash
             : $"{block.PreviousHash.Substring(0, 13)}...";
-        var genesisColor = i == 0 ? "is-somewhat-medium-purple" : "is-somewhat-black";
-        var zIndex = Blockchain.Chain.Count - i;
+        var genesisColor = i == 0 ? "is-tea-pink" : "is-somewhat-black";
 
-        <block class="@genesisColor" style="z-index: @zIndex;">
+        <block class="@genesisColor">
             <table class="table is-fullwidth">
                 <tbody>
                 <tr>
@@ -84,6 +104,7 @@
                         Hash
                     </td>
                     <td>
+
                         @block.Hash.Substring(0, 13)...
                     </td>
                 </tr>

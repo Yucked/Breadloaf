@@ -7,44 +7,63 @@
 @inject Blockchain Blockchain;
 
 <section class="has-20-padding has-30-margin has-border-radius-15 is-somewhat-yellow has-shadow">
-    <h1 class="is-size-4">Block Structure</h1>
-    <span class="has-10-margin">A block is essentially a record. Every block is immutable, once mutated the whole chain becomes invalid.</span>
+    <h1 class="title">Block Object:</h1>
+    <div class="container">
+        <p class="subtitle">
+            A block is essentially a record. Every block is immutable, once mutated the whole chain becomes invalid.
+        </p>
+    </div>
     <code>
-public struct Block {
-    [JsonPropertyName("nonce")]
-    public long Nonce { get; set; }
+        public struct Block {
+        [JsonPropertyName("nonce")]
+        public long Nonce { get; set; }
 
-    [JsonPropertyName("hash")]
-    public string Hash { get; set; }
+        [JsonPropertyName("hash")]
+        public string Hash { get; set; }
 
-    [JsonPropertyName("previous-hash")]
-    public string PreviousHash { get; set; }
+        [JsonPropertyName("previous-hash")]
+        public string PreviousHash { get; set; }
 
-    [JsonPropertyName("timestamp")]
-    public DateTimeOffset TimeStamp { get; set; }
+        [JsonPropertyName("timestamp")]
+        public DateTimeOffset TimeStamp { get; set; }
 
-    [JsonPropertyName("transactions")]
-    public List&lt;Transaction&gt; Transactions { get; set; }
-}
+        [JsonPropertyName("transactions")]
+        public List&lt;Transaction&gt; Transactions { get; set; }
+        }
+    </code>
+</section>
+
+
+<section class="has-20-padding has-30-margin has-border-radius-15 is-somewhat-yellow has-shadow">
+    <h1 class="title">Transaction Object:</h1>
+    <div class="container">
+        <p class="subtitle">
+            Information held by <highlight>Transaction</highlight> object:
+        </p>
+    </div>
+
+    <code>
+        public struct TransactionInfo {
+        [JsonPropertyName("from"), JsonConverter(typeof(IPEndPointConverter))]
+        public IPEndPoint From { get; set; }
+
+        [JsonPropertyName("to"), JsonConverter(typeof(IPEndPointConverter))]
+        public IPEndPoint To { get; set; }
+
+        [JsonPropertyName("amount")]
+        public double Amount { get; set; }
+
+        [JsonPropertyName("memo")]
+        public string Memo { get; set; }
+
+        [JsonPropertyName("timestamp")]
+        public DateTimeOffset Timestamp { get; set; }
+        }
     </code>
 
-    <p class="subtitle">
-        Information held by <highlight>Transaction</highlight> object:
-    </p>
+</section>
 
-    <code>
-public struct Transaction {
-    [JsonPropertyName("from"), JsonConverter(typeof(IPEndPointConverter))]
-    public IPEndPoint From { get; set; }
-
-    [JsonPropertyName("to"), JsonConverter(typeof(IPEndPointConverter))]
-    public IPEndPoint To { get; set; }
-
-    [JsonPropertyName("amount")]
-    public double Amount { get; set; }
-}
-    </code>
-
+<section class="has-20-padding has-30-margin has-border-radius-15 is-somewhat-yellow has-shadow">
     <div class="has-text-centered has-20-margin">
         <button class="button has-shadow is-medium is-somewhat-purple has-10-margin"
                 @onclick="@GenerateBlock">
@@ -53,11 +72,12 @@ public struct Transaction {
     </div>
 
     <div style="display: @_isHidden">
-        <p class="has-10-margin has-10-padding has-text-centered">
-            When serialized to JSON, you can see all the data a block contains. The first block in the chain is called <highlight>Genesis block</highlight>.
+        <p class="has-10-margin has-10-padding">
+            When serialized to JSON, you can see all the data a block contains. The first block in the chain is called <highlight>Genesis block</highlight>,
+            which is created when the application starts.
             <br>
-            The very first block always has it's previous hash set to 0 or sets of 0's for obvious reasons.
-            Transaction object contains the following information:
+            The genesis block always has it's previous hash set to 0 or 0's since it's the very first block in the chain!
+            Each block generated is automatically added to the chain.
         </p>
 
         <code>@_rawData</code>
