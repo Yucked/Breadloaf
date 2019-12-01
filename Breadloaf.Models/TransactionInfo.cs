@@ -5,12 +5,10 @@ using Breadloaf.Models.Converters;
 
 namespace Breadloaf.Models {
     public struct TransactionInfo {
-        [JsonPropertyName("from")]
-        [JsonConverter(typeof(IPEndPointConverter))]
+        [JsonPropertyName("from"), JsonConverter(typeof(IPEndPointConverter))]
         public IPEndPoint From { get; set; }
 
-        [JsonPropertyName("to")]
-        [JsonConverter(typeof(IPEndPointConverter))]
+        [JsonPropertyName("to"), JsonConverter(typeof(IPEndPointConverter))]
         public IPEndPoint To { get; set; }
 
         [JsonPropertyName("amount")]

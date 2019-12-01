@@ -19,7 +19,8 @@ namespace Breadloaf.Models {
                         Memo = "Dummy Transaction #${i}",
                         Amount = NextDouble,
                         From = GenerateRandomAddress(),
-                        To = GenerateRandomAddress()
+                        To = GenerateRandomAddress(),
+                        Timestamp = DateTimeOffset.Now
                     };
                 }
             }

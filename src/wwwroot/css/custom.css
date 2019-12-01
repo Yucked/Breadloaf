@@ -10,7 +10,7 @@ body, button {
 }
 
 html {
-    overflow: scroll;
+    overflow: visible;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -18,6 +18,15 @@ html {
 button {
     width: 15%;
     border-radius: 15px !important;
+}
+
+table {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+td {
+    border-color: #131313 !important;
 }
 
 ::-webkit-scrollbar {
@@ -138,15 +147,18 @@ block {
     box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.54);
 }
 
+figure {
+    margin: auto;
+}
 
 .has-image-centered {
     margin-left: auto;
     margin-right: auto;
 }
 
-.is-somewhat-purple {
-    color: #ede2dd !important;
-    background-color: #c229fa !important;
+.is-tea-pink {
+    color: #131313 !important;
+    background-color: #fcd4fb !important;
 }
 
 .is-somewhat-yellow {
@@ -184,11 +196,30 @@ block {
     background-color: #f29e9e !important;
 }
 
-table {
-    background-color: transparent !important;
-    color: inherit !important;
+.is-grape {
+    color: #ede2dd !important;
+    background-color: #413b4a !important;
 }
 
-td {
-    border: 0 !important;
+.is-floating {
+    animation: float 2s infinite ease-in;
+}
+
+.is-200x200 {
+    height: 200px;
+    width: 200px;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(1rem);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
