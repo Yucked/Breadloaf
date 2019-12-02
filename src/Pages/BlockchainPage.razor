@@ -6,12 +6,12 @@
 @inject Blockchain Blockchain;
 
 <section class="has-20-padding has-20-margin has-border-radius-15 is-grape has-shadow">
-    <h1 class="title" style="color: #ede2dd;">Chain Information:</h1>
+    <h1 class="title">Blocks Information:</h1>
     <div class="container">
-        <p class="subtitle has-text-justified" style="color: #cbc1bd;">
+        <p class="subtitle has-text-justified">
             We can see the current state of the chain and get basic information about it. The information displayed is only
-            for our current application. If there were multiple nodes, this information would be changing drastically as new
-            blocks are added to the chain and number of transaction going up or down.
+            for our current application AKA node. If there were multiple nodes, this information would be changing drastically as new
+            blocks are added to the chain and fluctuation in pending transaction count.
         </p>
     </div>
 
@@ -26,6 +26,28 @@
             <div class="column">
                 <table class="table is-fullwidth">
                     <tbody>
+                    <tr>
+                        <td>
+                            <b>
+                                Transaction Threshold:
+                            </b>
+                        </td>
+                        <td>
+                            @Blockchain.TransactionThreshold
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <b>
+                                Mining Difficulty:
+                            </b>
+                        </td>
+                        <td>
+                            @Blockchain.Difficulty
+                        </td>
+                    </tr>
+
                     <tr>
                         <td>
                             <b>
@@ -44,7 +66,7 @@
                             </b>
                         </td>
                         <td>
-                            @Blockchain.Chain.Count Block(s)
+                            @Blockchain.Blocks.Count Block(s)
                         </td>
                     </tr>
 
@@ -55,7 +77,7 @@
                             </b>
                         </td>
                         <td>
-                            @Blockchain.Transactions.Count
+                            @Blockchain.PendingTransactions.Count
                         </td>
                     </tr>
 
@@ -89,11 +111,11 @@
 </section>
 
 <section class="has-20-padding has-20-margin has-border-radius-15 has-text-centered">
-    @for (var i = 0; i < Blockchain.Chain.Count; i++) {
-        var block = Blockchain.Chain[i];
+    @for (var i = 0; i < Blockchain.Blocks.Count; i++) {
+        var block = Blockchain.Blocks[i];
         var prevHash = block.PreviousHash == "0"
-            ? block.PreviousHash
-            : $"{block.PreviousHash.Substring(0, 13)}...";
+            ? block.PreviousHash ?? "Unknown"
+            : $"{block.PreviousHash.Substring(0, 20)} ...";
         var genesisColor = i == 0 ? "is-tea-pink" : "is-somewhat-black";
 
         <block class="@genesisColor">
@@ -104,8 +126,7 @@
                         Hash
                     </td>
                     <td>
-
-                        @block.Hash.Substring(0, 13)...
+                        @block.Hash.Substring(0, 20) ...
                     </td>
                 </tr>
                 <tr>
@@ -118,10 +139,10 @@
                 </tr>
                 <tr>
                     <td>
-                        Proof of Work
+                        Nonce
                     </td>
                     <td>
-                        @block.Proof
+                        @block.Nonce
                     </td>
                 </tr>
                 <tr>
@@ -134,7 +155,7 @@
                 </tr>
                 <tr>
                     <td>
-                        Transactions
+                        PendingTransactions
                     </td>
                     <td>
                         @block.Transactions.Count

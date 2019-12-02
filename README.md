@@ -36,14 +36,14 @@ Ideally, ASP.NET Core would have done it but Blazor is something new that I've b
 - Open your browser and navigate to `localhost:5000` to preview the web page.
 
 ## `📚 To-Do List:`
-- [ ] Proof of work implementation.
+- [x] Proof of work implementation.
 - [x] Verifying block's hashes when verifying if chain is valid.
 - [x] Building a blockchain from web UI.
 - [x] CSS to demonstrate an actual block.
 - [ ] WebSockets client/server and syncing chains.
 - [x] Broadcasting to all clients when a block is added to the chain.
-- [ ] ~~Replace `System.Text.Json` with `Utf8Json`.~~
+- [x] ~~Replace `System.Text.Json` with `Utf8Json`.~~
 - [x] A separate webpage to visualize blockchain.
 - [x] Rename blockchain to `Breadcrumbs` 🍞.
-- [ ] Some sort of mining algorithm?
-- [ ] Figure out how pending transactions and block transactions work.
+- [x] ~~Some sort of mining algorithm?~~ (== proof of work).
+- [x] Figure out how pending transactions and block transactions work.

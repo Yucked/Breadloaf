@@ -1,0 +1,19 @@
+﻿@page "/nodes"
+
+<section class="has-20-padding has-30-margin has-border-radius-15 is-somewhat-medium-purple has-shadow">
+    <h1 class="is-size-2">What is a Node?</h1>
+    <div class="container">
+        <p class="subtitle">
+            A node represents a connection or another node (computer) that is connected to the network.
+            <br>
+            It contains the following information:
+        </p>
+    </div>
+
+    <code>
+public struct NodeInfo {
+    public IPEndPoint Address { get; set; }
+    public WebSocket Socket { get; set; }
+}
+    </code>    
+</section>
