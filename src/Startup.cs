@@ -1,7 +1,5 @@
-using System;
+using System.Net;
 using Breadloaf.Models;
-using Breadloaf.Controllers;
-using Breadloaf.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -10,21 +8,23 @@ using Microsoft.Extensions.Hosting;
 
 namespace Breadloaf {
     public readonly struct Startup {
-        private readonly IConfiguration _configuration;
-
-        public Startup(IConfiguration configuration) {
-            _configuration = configuration;
-        }
+        public Startup(IConfiguration configuration) { }
 
         public void ConfigureServices(IServiceCollection services) {
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddResponseCompression();
-            services.AddSingleton<Blockchain>();
-            services.AddSingleton<WebSocketController>();
+
+            var blockchain = new Blockchain();
+            blockchain.CreateGenesisBlock();
+            blockchain.AddNode(new NodeInfo {
+                Address = IPEndPoint.Parse("127.0.0.1:5000")
+            });
+            services.AddSingleton(blockchain);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+            app.UseResponseCompression();
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
@@ -35,9 +35,6 @@ namespace Breadloaf {
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            //app.UseMiddleware(typeof(ExceptionMiddleware));
-            //app.UseMiddleware(typeof(WebSocketMiddleware));
 
             app.UseRouting();
             app.UseEndpoints(endpoints => {

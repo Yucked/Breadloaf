@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,24 +7,30 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Breadloaf.Models {
-    public sealed class Blockchain {
+    public sealed class Blockchain : IDisposable {
+        [JsonPropertyName("transaction-threshold")]
+        public int TransactionThreshold { get; set; } = 5;
+
+        [JsonPropertyName("difficulty")]
+        public int Difficulty { get; set; } = 2;
+
         [JsonPropertyName("nodes")]
         public IList<NodeInfo> Nodes { get; set; }
 
-        [JsonPropertyName("chain")]
-        public IList<BlockInfo> Chain { get; set; }
+        [JsonPropertyName("blocks")]
+        public IList<BlockInfo> Blocks { get; set; }
 
         [JsonPropertyName("pending-transactions")]
-        public ConcurrentQueue<TransactionInfo> Transactions { get; set; }
+        public IList<TransactionInfo> PendingTransactions { get; set; }
 
         [JsonPropertyName("is-valid")]
         public bool IsValid
         {
             get
             {
-                for (var i = 1; i < Chain.Count; i++) {
-                    var previous = Chain[i - 1];
-                    var current = Chain[i];
+                for (var i = 1; i < Blocks.Count; i++) {
+                    var previous = Blocks[i - 1];
+                    var current = Blocks[i];
 
                     var currentHash = Hashing.Get(current);
                     if (current.Hash != currentHash)
@@ -41,24 +46,25 @@ namespace Breadloaf.Models {
 
         [JsonPropertyName("crumbs")]
         public double Crumbs
-            => Chain.Sum(x => x.Transactions.Sum(s => s.Amount));
+            => Blocks.Sum(x => x.Transactions.Sum(s => s.Amount));
 
         public event Func<BlockInfo, Task> OnBlockAdded;
 
         public Blockchain() {
             Nodes = new Collection<NodeInfo>();
-            Chain = new Collection<BlockInfo>();
-            Transactions = new ConcurrentQueue<TransactionInfo>();
+            Blocks = new Collection<BlockInfo>();
+            PendingTransactions = new Collection<TransactionInfo>();
+        }
 
+        public void CreateGenesisBlock() {
             var genesis = new BlockInfo {
                 PreviousHash = "0",
-                Proof = 0,
                 TimeStamp = DateTimeOffset.Now,
                 Transactions = new Collection<TransactionInfo>()
             };
 
             Hashing.Create(ref genesis);
-            Chain.Add(genesis);
+            Blocks.Add(genesis);
         }
 
         public void AddNode(NodeInfo node) {
@@ -69,28 +75,40 @@ namespace Breadloaf.Models {
             Nodes.Remove(node);
         }
 
-        public void AddBlock(ref BlockInfo block) {
-            block.PreviousHash = Chain[^1].Hash;
-            Hashing.Create(ref block);
-            Chain.Add(block);
+        public void AddBlock(BlockInfo block) {
+            Blocks.Add(block);
             OnBlockAdded?.Invoke(block);
         }
 
-        public void MineBlock(BlockInfo block, int proofOfWork) {
-            var hashValidationTemplate = new string('0', proofOfWork);
-
-            while (block.Hash.Substring(0, proofOfWork) != hashValidationTemplate)
-                Hashing.Create(ref block);
-        }
-
         public void CreateTransaction(TransactionInfo transaction) {
-            Transactions.Enqueue(transaction);
-            if (Transactions.Count < 2)
+            PendingTransactions.Add(transaction);
+
+            if (PendingTransactions.Count < TransactionThreshold)
                 return;
+
+            var block = new BlockInfo {
+                PreviousHash = Blocks[^1].Hash,
+                TimeStamp = DateTimeOffset.Now,
+                Transactions = PendingTransactions
+            };
+
+            var requiredZeros = new string('0', Difficulty);
+            do {
+                block.Nonce++;
+                Hashing.Create(ref block);
+            } while (string.IsNullOrWhiteSpace(block.Hash) || !block.Hash.StartsWith(requiredZeros));
+
+            AddBlock(block);
         }
 
         public override string ToString() {
             return JsonSerializer.Serialize(this);
+        }
+
+        public void Dispose() {
+            Blocks.Clear();
+            Nodes.Clear();
+            PendingTransactions.Clear();
         }
     }
 }

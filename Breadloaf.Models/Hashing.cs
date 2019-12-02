@@ -2,9 +2,10 @@
 using System.Text;
 
 namespace Breadloaf.Models {
-    public struct Hashing {
+    public readonly ref struct Hashing {
         public static void Create(ref BlockInfo blockInfo) {
-            var rawData = $"{blockInfo.PreviousHash}-{blockInfo.TimeStamp.Ticks}-{blockInfo.Transactions.Count}";
+            var rawData =
+                $"{blockInfo.PreviousHash}-{blockInfo.TimeStamp.Ticks}-{blockInfo.Transactions.Count}-{blockInfo.Nonce}";
             using var crypto = SHA512.Create();
             var hash = crypto.ComputeHash(Encoding.UTF8.GetBytes(rawData));
 
@@ -16,7 +17,8 @@ namespace Breadloaf.Models {
         }
 
         public static string Get(BlockInfo blockInfo) {
-            var rawData = $"{blockInfo.PreviousHash}-{blockInfo.TimeStamp.Ticks}-{blockInfo.Transactions.Count}";
+            var rawData =
+                $"{blockInfo.PreviousHash}-{blockInfo.TimeStamp.Ticks}-{blockInfo.Transactions.Count}-{blockInfo.Nonce}";
             using var crypto = SHA512.Create();
             var hash = crypto.ComputeHash(Encoding.UTF8.GetBytes(rawData));
 

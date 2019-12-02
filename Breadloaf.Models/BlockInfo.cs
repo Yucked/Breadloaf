@@ -5,14 +5,14 @@ using System.Text.Json.Serialization;
 
 namespace Breadloaf.Models {
     public sealed class BlockInfo : IEquatable<BlockInfo> {
+        [JsonPropertyName("nonce")]
+        public long Nonce { get; set; }
+
         [JsonPropertyName("hash")]
         public string Hash { get; private set; }
 
         [JsonPropertyName("previous-hash")]
         public string PreviousHash { get; set; }
-
-        [JsonPropertyName("proof")]
-        public int Proof { get; set; }
 
         [JsonPropertyName("timestamp")]
         public DateTimeOffset TimeStamp { get; set; }
@@ -23,7 +23,7 @@ namespace Breadloaf.Models {
         public bool Equals(BlockInfo other) {
             return Hash == other.Hash
                    && PreviousHash == other.PreviousHash
-                   && Proof == other.Proof
+                   && Nonce == other.Nonce
                    && TimeStamp.Equals(other.TimeStamp)
                    && Equals(Transactions, other.Transactions);
         }
@@ -38,10 +38,6 @@ namespace Breadloaf.Models {
 
         public static bool operator !=(BlockInfo left, BlockInfo right) {
             return !left.Equals(right);
-        }
-
-        public override int GetHashCode() {
-            return base.GetHashCode();
         }
 
         public void SetHash(string hash) {

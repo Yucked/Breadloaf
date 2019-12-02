@@ -1,14 +1,16 @@
 <Router AppAssembly="@typeof(Program).Assembly">
+
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
     </Found>
+
     <NotFound>
         <LayoutView Layout="@typeof(MainLayout)">
-            <section class="has-30-margin">
-                <h2 class="has-text-centered is-size-2">
+            <section class="has-30-margin has-text-centered">
+                <h2 class="title">
                     Seems like you're lost, young one.
                 </h2>
-                <figure class="image has-image-centered" style="width: 40%">
+                <figure class="image" style="width: 40%">
                     <img src="/imgs/giphy.webp" alt="">
                 </figure>
             </section>

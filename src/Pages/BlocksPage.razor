@@ -14,27 +14,27 @@
         </p>
     </div>
     <code>
-        public struct Block {
-        [JsonPropertyName("nonce")]
-        public long Nonce { get; set; }
+public struct Block {
+    [JsonPropertyName("nonce")]
+    public long Nonce { get; set; }
 
-        [JsonPropertyName("hash")]
-        public string Hash { get; set; }
+    [JsonPropertyName("hash")]
+    public string Hash { get; set; }
 
-        [JsonPropertyName("previous-hash")]
-        public string PreviousHash { get; set; }
+    [JsonPropertyName("previous-hash")]
+    public string PreviousHash { get; set; }
 
-        [JsonPropertyName("timestamp")]
-        public DateTimeOffset TimeStamp { get; set; }
+    [JsonPropertyName("timestamp")]
+    public DateTimeOffset TimeStamp { get; set; }
 
-        [JsonPropertyName("transactions")]
-        public List&lt;Transaction&gt; Transactions { get; set; }
-        }
+    [JsonPropertyName("transactions")]
+    public List&lt;Transaction&gt; PendingTransactions { get; set; }
+}
     </code>
 </section>
 
 
-<section class="has-20-padding has-30-margin has-border-radius-15 is-somewhat-yellow has-shadow">
+<section class="has-20-padding has-30-margin has-border-radius-15 is-grape has-shadow">
     <h1 class="title">Transaction Object:</h1>
     <div class="container">
         <p class="subtitle">
@@ -43,35 +43,28 @@
     </div>
 
     <code>
-        public struct TransactionInfo {
-        [JsonPropertyName("from"), JsonConverter(typeof(IPEndPointConverter))]
-        public IPEndPoint From { get; set; }
+public struct TransactionInfo {
+    [JsonPropertyName("from"), JsonConverter(typeof(IPEndPointConverter))]
+    public IPEndPoint From { get; set; }
 
-        [JsonPropertyName("to"), JsonConverter(typeof(IPEndPointConverter))]
-        public IPEndPoint To { get; set; }
+    [JsonPropertyName("to"), JsonConverter(typeof(IPEndPointConverter))]
+    public IPEndPoint To { get; set; }
 
-        [JsonPropertyName("amount")]
-        public double Amount { get; set; }
+    [JsonPropertyName("amount")]
+    public double Amount { get; set; }
 
-        [JsonPropertyName("memo")]
-        public string Memo { get; set; }
+    [JsonPropertyName("memo")]
+    public string Memo { get; set; }
 
-        [JsonPropertyName("timestamp")]
-        public DateTimeOffset Timestamp { get; set; }
-        }
+    [JsonPropertyName("timestamp")]
+    public DateTimeOffset Timestamp { get; set; }
+}
     </code>
 
 </section>
 
-<section class="has-20-padding has-30-margin has-border-radius-15 is-somewhat-yellow has-shadow">
-    <div class="has-text-centered has-20-margin">
-        <button class="button has-shadow is-medium is-somewhat-purple has-10-margin"
-                @onclick="@GenerateBlock">
-            Generate Block!
-        </button>
-    </div>
-
-    <div style="display: @_isHidden">
+<section class="has-20-padding has-30-margin has-border-radius-15 is-grape has-shadow">
+    <div>
         <p class="has-10-margin has-10-padding">
             When serialized to JSON, you can see all the data a block contains. The first block in the chain is called <highlight>Genesis block</highlight>,
             which is created when the application starts.
@@ -80,7 +73,16 @@
             Each block generated is automatically added to the chain.
         </p>
 
-        <code>@_rawData</code>
+        <div class="has-text-centered has-20-margin">
+            <button class="button has-shadow is-medium is-somewhat-medium-purple has-10-margin"
+                    @onclick="@GenerateBlock">
+                Generate Block!
+            </button>
+        </div>
+
+        <div style="display: @_isHidden">
+            <code>@_rawData</code>
+        </div>
     </div>
 </section>
 
@@ -94,12 +96,12 @@
         try {
             var block = new BlockInfo {
                 TimeStamp = DateTimeOffset.Now,
-                PreviousHash = "000000",
+                PreviousHash = Blockchain.Blocks[^1].Hash,
                 Transactions = Utilities.DummyTransactions.ToArray()
             };
 
             Hashing.Create(ref block);
-            Blockchain.AddBlock(ref block);
+            Blockchain.AddBlock(block);
 
             _rawData = JsonSerializer.Serialize(block, new JsonSerializerOptions {
                 WriteIndented = true
