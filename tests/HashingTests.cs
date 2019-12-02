@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using Breadloaf.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,17 +17,16 @@ namespace Breadloaf.Tests {
         [TestMethod]
         public void HashBlock() {
             var block = new BlockInfo {
-                Transactions = new List<TransactionInfo>(),
+                Transactions = Utilities.DummyTransactions.ToArray(),
                 TimeStamp = DateTimeOffset.Now,
-                PreviousHash = "000000",
-                Proof = 5
+                PreviousHash = "000000"
             };
 
             Hashing.Create(ref block);
             Assert.IsNotNull(block.Hash);
 
             var getHash = Hashing.Get(block);
-            Assert.AreEqual(block.Hash, getHash, $"{block.Hash}\n{getHash}");
+            Assert.AreEqual(block.Hash, getHash);
         }
     }
 }
