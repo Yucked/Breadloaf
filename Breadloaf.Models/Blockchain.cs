@@ -69,10 +69,14 @@ namespace Breadloaf.Models {
 
         public void AddNode(NodeInfo node) {
             Nodes.Add(node);
+            node.OnClosed += OnClosed;
+            node.OnMessage += OnMessage;
         }
 
         public void RemoveNode(NodeInfo node) {
             Nodes.Remove(node);
+            node.OnClosed -= OnClosed;
+            node.OnMessage -= OnMessage;
         }
 
         public void AddBlock(BlockInfo block) {
@@ -92,6 +96,8 @@ namespace Breadloaf.Models {
                 Transactions = PendingTransactions
             };
 
+            PendingTransactions.Clear();
+
             var requiredZeros = new string('0', Difficulty);
             do {
                 block.Nonce++;
@@ -109,6 +115,15 @@ namespace Breadloaf.Models {
             Blocks.Clear();
             Nodes.Clear();
             PendingTransactions.Clear();
+        }
+
+        private Task OnMessage(NodeInfo node, ReadOnlyMemory<byte> arg) {
+            return Task.CompletedTask;
+        }
+
+        private Task OnClosed(NodeInfo node) {
+            RemoveNode(node);
+            return Task.CompletedTask;
         }
     }
 }

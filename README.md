@@ -18,7 +18,7 @@
 ---
 
 ## `📚 BACKGROUND:`
-This project is part of my undergrad research t I did at my college on **Discovering Blockchain Technology**. To demonstrate how Blockchain works, I decided to build an application with these capabilities in mind:
+This project is part of my undergrad research I did at my college on **Discovering Blockchain Technology**. To demonstrate how Blockchain works, I decided to build an application with these capabilities in mind:
 
 - Is console based
 - Has some sort of UI (Web Pages)
