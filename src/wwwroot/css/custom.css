@@ -243,7 +243,11 @@ figure {
     top: 0.5rem;
 }
 
-section.is-grape, section.is-somewhat-medium-purple > div.container > p.subtitle {
+section.is-grape > div.container > p.subtitle {
+    color: #cbc1bd !important;
+}
+
+section.is-somewhat-medium-purple > div.container > p.subtitle {
     color: #cbc1bd !important;
 }
 
